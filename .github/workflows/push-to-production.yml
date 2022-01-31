@@ -9,15 +9,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@main
+    - uses: actions/checkout@v2
     - name: Copy files merged into main from the test to production folder
-      run: cp "test/.*" "production/.*"
-    - name: Commit files
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "Move to production folder" -a
-    - name: Push changes
-      uses: ad-m/github-push-action@main
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      run: cp test production
+    - run: |
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
+          git push
