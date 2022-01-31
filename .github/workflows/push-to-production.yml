@@ -11,6 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Copy files merged into main from the test to production folder
+      run: rm -R production/*
       run: cp -R test/* production
     - run: |
           date > generated.txt
