@@ -1,0 +1,23 @@
+name: push-to-production
+on:
+  push:
+    branches: [ master ]
+    paths: 'test/*'
+
+jobs:
+  docit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Copy files merged into main from the test to production folder
+      run: cp "test/.*" "production/.*"
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Move to production folder" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
