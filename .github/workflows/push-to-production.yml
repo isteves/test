@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Copy files merged into main from the test to production folder
-      run: cp test production
+      run: cp -R test production
     - run: |
           date > generated.txt
           git config user.name github-actions
